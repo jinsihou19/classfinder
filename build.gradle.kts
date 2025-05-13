@@ -30,9 +30,12 @@ tasks {
         kotlinOptions.jvmTarget = "17"
     }
 
+    buildSearchableOptions {
+        enabled = false
+    }
+
     patchPluginXml {
-        sinceBuild.set("200")
-        untilBuild.set("260.*")
+        sinceBuild.set("212.4")
     }
 
     signPlugin {
