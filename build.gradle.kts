@@ -1,11 +1,14 @@
+
+fun properties(key: String) = project.findProperty(key).toString()
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.25"
     id("org.jetbrains.intellij") version "1.17.4"
 }
 
-group = "org.vito"
-version = "1.0"
+group = properties("pluginGroup")
+version = properties("pluginVersion")
 
 repositories {
     mavenCentral()
@@ -14,8 +17,10 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2023.2.6")
-    type.set("IC") // Target IDE Platform
+    pluginName.set(properties("pluginName"))
+    version.set(properties("platformVersion"))
+    type.set(properties("platformType"))
+
 
     plugins.set(listOf(/* Plugin Dependencies */))
 }
@@ -35,7 +40,9 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("212.4")
+        version.set(properties("pluginVersion"))
+        sinceBuild.set(properties("pluginSinceBuild"))
+        untilBuild.set(properties("pluginUntilBuild"))
     }
 
     signPlugin {
